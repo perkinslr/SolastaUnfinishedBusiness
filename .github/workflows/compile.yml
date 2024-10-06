@@ -1,0 +1,33 @@
+name: Compile
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Prebuild
+      run: |
+        printf "%s" "$REF_DEPLOY_KEY" > id_ed25519
+        chmod 600 id_ecdsa
+        eval $(ssh-agent -s)
+        ssh-add id_ed25519
+        git clone perkinslr@github.com:perkinslr/SolastaReferenceAssemblies
+      shell: bash
+      env:
+        REF_DEPLOY_KEY: ${{secrets.REF_DEPLOY_KEY}}
+
+    - name: prebuild
+      run: |
+        SolastaInstallDir=$PWD/SolastaReferenceAssemblies SolutionDir=$PWD dotnet clean SolastaUnfinishedBusiness.sln
+    - name: build
+      run: |
+        SolastaInstallDir=$PWD/SolastaReferenceAssemblies SolutionDir=$PWD dotnet build SolastaUnfinishedBusiness.sln
+        
+    - uses: actions/upload-artifact@v4
+      with:
+        name: UnfinishedBusiness
+        path: SolastaReferenceAssemblies/Mods
+        
