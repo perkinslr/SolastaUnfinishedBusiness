@@ -10,14 +10,11 @@ jobs:
     - uses: actions/checkout@v3
     - name: Prebuild
       run: |
-        printf "%s" "$REF_DEPLOY_KEY" > id_ed25519
-        chmod 600 id_ecdsa
         eval $(ssh-agent -s)
-        ssh-add id_ed25519
+        ssh-add - <<< '${{ secrets.REF_DEPLOY_KEY }}'
         git clone perkinslr@github.com:perkinslr/SolastaReferenceAssemblies
       shell: bash
-      env:
-        REF_DEPLOY_KEY: ${{secrets.REF_DEPLOY_KEY}}
+      
 
     - name: prebuild
       run: |
