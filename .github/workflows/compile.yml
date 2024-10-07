@@ -24,11 +24,10 @@ jobs:
         SolastaInstallDir=/home/runner/work/SolastaReferenceAssemblies/ SolutionDir=$PWD/ dotnet restore SolastaUnfinishedBusiness.sln
     - name: clean
       run: |
-        SolastaInstallDir=/home/runner/work/SolastaReferenceAssemblies/ SolutionDir=$PWD/ dotnet clean SolastaUnfinishedBusiness.sln  
-        pwd
-        ls -l
-        ls /home/runner/work/SolastaReferenceAssemblies -l
-        ls -l lib
+        pushd SolastaUnfinishedBusiness
+        zip -r Resources/Translations.zip Translations/
+        cp /home/runner/work/SolastaReferenceAssemblies/Solasta_Data/Managed/Assembly-CSharp.dll ../lib/Assembly-CSharp_public.dll
+        popd
     - name: build
       run: |
         SolastaInstallDir=/home/runner/work/SolastaReferenceAssemblies/ SolutionDir=$PWD/ dotnet build SolastaUnfinishedBusiness.sln
