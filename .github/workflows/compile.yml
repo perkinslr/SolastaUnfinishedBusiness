@@ -8,14 +8,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Prebuild
-      run: |
-        eval $(ssh-agent -s)
-        ssh-add - <<< '${{ secrets.REF_DEPLOY_KEY }}'
-        git clone perkinslr@github.com:perkinslr/SolastaReferenceAssemblies
-      shell: bash
-      
-
+    - uses: actions/checkout@v3
+      with:
+        repository: perkinslr/SolastaReferenceAssemblies
+        ssh-key: ${{ secrets.REF_DEPLOY_KEY }}
+        path: SolastaReferenceAssemblies
     - name: prebuild
       run: |
         SolastaInstallDir=$PWD/SolastaReferenceAssemblies SolutionDir=$PWD dotnet clean SolastaUnfinishedBusiness.sln
