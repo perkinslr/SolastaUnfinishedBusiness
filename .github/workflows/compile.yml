@@ -13,10 +13,12 @@ jobs:
         repository: perkinslr/SolastaReferenceAssemblies
         ssh-key: ${{ secrets.REF_DEPLOY_KEY }}
         path: SolastaReferenceAssemblies
-    - name: prebuild
+    - name: restore
       run: |
-        cp SolastaReferenceAssemblies/Solasta_Data/Managed/Assembly-CSharp_publicized.dll lib
-        SolastaInstallDir=$PWD/SolastaReferenceAssemblies SolutionDir=$PWD dotnet clean SolastaUnfinishedBusiness.sln
+        SolastaInstallDir=$PWD/SolastaReferenceAssemblies SolutionDir=$PWD dotnet restore SolastaUnfinishedBusiness.sln
+    - name: clean
+      run: |
+        SolastaInstallDir=$PWD/SolastaReferenceAssemblies SolutionDir=$PWD dotnet clean SolastaUnfinishedBusiness.sln  
     - name: build
       run: |
         SolastaInstallDir=$PWD/SolastaReferenceAssemblies SolutionDir=$PWD dotnet build SolastaUnfinishedBusiness.sln
