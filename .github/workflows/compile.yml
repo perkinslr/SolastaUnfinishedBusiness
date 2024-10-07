@@ -12,18 +12,16 @@ jobs:
       with:
         repository: perkinslr/SolastaReferenceAssemblies
         ssh-key: ${{ secrets.REF_DEPLOY_KEY }}
-        path: SolastaReferenceAssemblies
+        path: /tmp/SRA
     - name: restore
       run: |
-        SolastaInstallDir=$PWD/SolastaReferenceAssemblies SolutionDir=$PWD dotnet restore SolastaUnfinishedBusiness.sln
+        SolastaInstallDir=/tmp/SRA SolutionDir=$PWD dotnet restore SolastaUnfinishedBusiness.sln
     - name: clean
       run: |
-        SolastaInstallDir=$PWD/SolastaReferenceAssemblies SolutionDir=$PWD dotnet clean SolastaUnfinishedBusiness.sln  
+        SolastaInstallDir=/tmp/SRA SolutionDir=$PWD dotnet clean SolastaUnfinishedBusiness.sln  
     - name: build
       run: |
-        rm -f SolastaReferenceAssemblies/Solasta_Data/Managed/Assembly-CSharp.dll
-        rm -f SolastaReferenceAssemblies/Solasta_Data/Managed/Assembly-CSharp_publicized.dll
-        SolastaInstallDir=$PWD/SolastaReferenceAssemblies SolutionDir=$PWD dotnet build SolastaUnfinishedBusiness.sln
+        SolastaInstallDir=/tmp/SRA SolutionDir=$PWD dotnet build SolastaUnfinishedBusiness.sln
         
     - uses: actions/upload-artifact@v4
       with:
