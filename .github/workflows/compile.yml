@@ -12,21 +12,15 @@ jobs:
         repository: perkinslr/SolastaReferenceAssemblies
         ssh-key: ${{ secrets.REF_DEPLOY_KEY }}
         path: SolastaReferenceAssemblies
-    - name: prebuild
-      run: |
-        pwd
-        ls -l
-        pushd ..
-        pwd
-        ls -l
     - uses: actions/checkout@v3
       with:
         clean: false
 
     - name: restore
       run: |
-        ls -l $HOME/work/
-        ls -l $HOME/work/SolastaUnfinishedBusiness
+        pwd
+        ls -altr
+        ls -altr ..
         SolastaInstallDir=$PWD/../SolastaReferenceAssemblies SolutionDir=$PWD dotnet restore SolastaUnfinishedBusiness.sln
     - name: clean
       run: |
