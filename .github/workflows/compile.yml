@@ -19,7 +19,7 @@ jobs:
 
     - name: restore
       run: |
-        ls -l $HOME/work
+        ls -l $HOME/work/SolastaUnfinishedBusiness
         SolastaInstallDir=$PWD/../SolastaReferenceAssemblies SolutionDir=$PWD dotnet restore SolastaUnfinishedBusiness.sln
     - name: clean
       run: |
