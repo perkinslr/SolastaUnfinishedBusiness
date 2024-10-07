@@ -21,14 +21,14 @@ jobs:
         clean: false
     - name: restore
       run: |
-        pwd
-        ls -l
-        ls /home/runner/work/SolastaReferenceAssemblies -l
-        ls -l lib
         SolastaInstallDir=/home/runner/work/SolastaReferenceAssemblies SolutionDir=$PWD dotnet restore SolastaUnfinishedBusiness.sln
     - name: clean
       run: |
         SolastaInstallDir=/home/runner/work/SolastaReferenceAssemblies SolutionDir=$PWD dotnet clean SolastaUnfinishedBusiness.sln  
+        pwd
+        ls -l
+        ls /home/runner/work/SolastaReferenceAssemblies -l
+        ls -l lib
     - name: build
       run: |
         SolastaInstallDir=/home/runner/work/SolastaReferenceAssemblies SolutionDir=$PWD dotnet build SolastaUnfinishedBusiness.sln
