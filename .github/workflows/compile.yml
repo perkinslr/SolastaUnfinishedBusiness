@@ -8,11 +8,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - uses: actions/checkout@v3
       with:
         repository: perkinslr/SolastaReferenceAssemblies
         ssh-key: ${{ secrets.REF_DEPLOY_KEY }}
         path: /home/runner/work/SolastaUnfinishedBusiness/SRA
+    - uses: actions/checkout@v3
     - name: restore
       run: |
         SolastaInstallDir=/home/runner/work/SolastaUnfinishedBusiness/SRA SolutionDir=$PWD dotnet restore SolastaUnfinishedBusiness.sln
