@@ -8,23 +8,24 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: prebuild
-      run: |
-        rm -rf .git
-    - uses: actions/checkout@v3
       with:
         repository: perkinslr/SolastaReferenceAssemblies
         ssh-key: ${{ secrets.REF_DEPLOY_KEY }}
-    - name: restore
+        path: SolastaReferenceAssemblies
+    - name: prebuild
       run: |
         pushd ..
-        SolastaInstallDir=SolastaReferenceAssemblies SolutionDir=$PWD dotnet restore SolastaUnfinishedBusiness.sln
+    - uses: actions/checkout@v3
+
+    - name: restore
+      run: |
+        SolastaInstallDir=$PWD/../SolastaReferenceAssemblies SolutionDir=$PWD dotnet restore SolastaUnfinishedBusiness.sln
     - name: clean
       run: |
-        SolastaInstallDir=SolastaReferenceAssemblies SolutionDir=$PWD dotnet clean SolastaUnfinishedBusiness.sln  
+        SolastaInstallDir=$PWD/../SolastaReferenceAssemblies SolutionDir=$PWD dotnet clean SolastaUnfinishedBusiness.sln  
     - name: build
       run: |
-        SolastaInstallDir=SolastaReferenceAssemblies SolutionDir=$PWD dotnet build SolastaUnfinishedBusiness.sln
+        SolastaInstallDir=$PWD/../SolastaReferenceAssemblies SolutionDir=$PWD dotnet build SolastaUnfinishedBusiness.sln
     - uses: actions/upload-artifact@v4
       with:
         name: UnfinishedBusiness
