@@ -14,8 +14,8 @@ jobs:
         path: SolastaReferenceAssemblies
     - name: prebuild
       run: |
-        find /home/runner/work/SolastaReferenceAssemblies
         mv /home/runner/work/SolastaUnfinishedBusiness/SolastaUnfinishedBusiness/SolastaReferenceAssemblies /home/runner/work
+        find /home/runner/work/SolastaReferenceAssemblies
     - uses: actions/checkout@v3
       with:
         clean: false
