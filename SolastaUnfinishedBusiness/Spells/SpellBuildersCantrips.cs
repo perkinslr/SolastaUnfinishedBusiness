@@ -241,8 +241,8 @@ internal static partial class SpellBuilders
                     .Create(WallOfFireLine)
                     .SetDurationData(DurationType.Minute, 1)
                     .SetTargetingData(Side.All, RangeType.Distance, 6, TargetType.Cube)
-                    .SetEffectAdvancement(EffectIncrementMethod.CasterLevelTable, additionalDicePerIncrement: 1)
-                    .SetSavingThrowData(false, AttributeDefinitions.Dexterity, false,
+                     .SetEffectAdvancement(EffectIncrementMethod.CasterLevelTable, additionalDicePerIncrement: 1)
+                    .SetSavingThrowData(false, AttributeDefinitions.Dexterity, true,
                         EffectDifficultyClassComputation.SpellCastingFeature)
                     .SetRecurrentEffect(
                         RecurrentEffect.OnActivation | RecurrentEffect.OnEnter | RecurrentEffect.OnTurnEnd)
@@ -1077,6 +1077,8 @@ internal static partial class SpellBuilders
                     .SetImpactEffectParameters(BurningHands_B)
                     .Build())
             .AddToDB();
+
+        powerResonatingStrikeDamage.EffectDescription.EffectAdvancement.additionalDicePerIncrement = 1;
 
         var additionalDamageResonatingStrike = FeatureDefinitionAdditionalDamageBuilder
             .Create("AdditionalDamageResonatingStrike")
